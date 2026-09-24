@@ -25,6 +25,10 @@ jobs:
         with:
           ruby-version: "4.0"
       - run: gem install trmnl_preview
+      - name: Install PNG renderer dependency
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y imagemagick
       - run: trmnlp lint
       - name: Render OG PNGs
         run: |
