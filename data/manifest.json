@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "revision": "WPP 2024",
+  "variant": "Medium",
+  "year": 2026,
+  "indicator": "Life expectancy E(x) - complete",
+  "indicator_id": 76,
+  "ages": "0-100 single-year",
+  "country_count": 237,
+  "license": "CC BY 3.0 IGO",
+  "sources": {
+    "male": {
+      "url": "https://population.un.org/wpp/assets/Excel%20Files/1_Indicator%20(Standard)/CSV_FILES/WPP2024_Life_Table_Complete_Medium_Male_2024-2100.csv.gz",
+      "sha256": "0a7e3eceaef592a599ec2808dd43e5081b0b834e2a579a6fd886fcf6ede77a1b"
+    },
+    "female": {
+      "url": "https://population.un.org/wpp/assets/Excel%20Files/1_Indicator%20(Standard)/CSV_FILES/WPP2024_Life_Table_Complete_Medium_Female_2024-2100.csv.gz",
+      "sha256": "8ebd82988839c514556290364794daf7e8d29a39987f7c15c2cb04b4bf8845d1"
+    }
+  }
+}
