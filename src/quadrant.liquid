@@ -1,7 +1,7 @@
 {% if state == 'ok' %}
 <div class="layout lc-layout lc-quadrant">
   <section>
-    <img class="lc-clock w--[138px] lg:w--[260px]" src="data:image/svg+xml;base64,{{ life_clock_svg | base64_encode }}" alt="Life Clock at {{ life_clock }}">
+    <img class="lc-clock w--32 lg:w--48" src="data:image/svg+xml;base64,{{ life_clock_svg | base64_encode }}" alt="Life Clock at {{ life_clock }}">
   </section>
   <section>
     <div class="label label--small lg:label--base lc-kicker">Life Clock</div>

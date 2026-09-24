@@ -8,7 +8,7 @@
 
   <main class="lc-full__body">
     <section class="lc-full__dial">
-      <img class="lc-clock w--[300px] lg:w--[540px]" src="data:image/svg+xml;base64,{{ life_clock_svg | base64_encode }}" alt="Life Clock at {{ life_clock }}">
+      <img class="lc-clock w--72 lg:w--96" src="data:image/svg+xml;base64,{{ life_clock_svg | base64_encode }}" alt="Life Clock at {{ life_clock }}">
     </section>
 
     <section class="lc-full__readout">
@@ -18,7 +18,7 @@
       </div>
 
       <div>
-        <img class="lc-progress h--[34px] lg:h--[52px]" src="data:image/svg+xml;base64,{{ progress_svg | base64_encode }}" alt="{{ progress_percent }} percent of the current statistical lifetime lived">
+        <img class="lc-progress h--8 lg:h--14" src="data:image/svg+xml;base64,{{ progress_svg | base64_encode }}" alt="{{ progress_percent }} percent of the current statistical lifetime lived">
         <div class="description description--small lg:description--base lc-progress-note">{{ clock_remaining }} remains on the statistical 24-hour day.</div>
       </div>
 
