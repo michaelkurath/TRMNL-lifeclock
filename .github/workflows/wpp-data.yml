@@ -1,0 +1,47 @@
+name: Build official UN WPP data
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/build_wpp_life_expectancy.py"
+      - ".github/workflows/wpp-data.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+      - name: Build from official UN WPP 2024 bulk files
+        run: python3 scripts/build_wpp_life_expectancy.py 2026
+      - name: Validate generated repository state
+        run: |
+          test "$(find data/countries -maxdepth 1 -name '*.json' | wc -l)" -eq 237
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          m=json.loads(Path("data/manifest.json").read_text())
+          assert m["country_count"] == 237
+          assert m["year"] == 2026
+          assert all(len(json.loads(p.read_text())["country"][s]) == 101
+                     for p in Path("data/countries").glob("*.json")
+                     for s in ("male","female"))
+          print("PASS: manifest and 237 runtime files validated")
+          PY
+          git diff --check
+      - name: Commit generated WPP data
+        run: |
+          git config user.name "life-clock-data[bot]"
+          git config user.email "life-clock-data[bot]@users.noreply.github.com"
+          git add data/countries data/manifest.json src/settings.yml
+          if git diff --cached --quiet; then
+            echo "Official WPP data already current."
+          else
+            git commit -m "Build official UN WPP 2026 life tables"
+            git push
+          fi
