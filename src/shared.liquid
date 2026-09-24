@@ -42,9 +42,11 @@ TRMNLP custom-field references (used by Serverless): birth_date sex country_code
 
 {%- capture title_icon -%}
 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
-  <circle cx="12" cy="12" r="9.5" fill="none" stroke="#000" stroke-width="2"/>
-  <path d="M12 12V5M12 12l5 3" fill="none" stroke="#000" stroke-width="2.4" stroke-linecap="round"/>
-  <circle cx="12" cy="12" r="2" fill="#000"/>
+  <circle cx="12" cy="12" r="9.2" fill="none" stroke="#000" stroke-width="2"
+          stroke-linecap="round" stroke-dasharray="43 15" transform="rotate(-90 12 12)"/>
+  <path d="M12 4.6v2.1M19.4 12h-2.1M12 19.4v-2.1M4.6 12h2.1M12 12l5-3.5"
+        fill="none" stroke="#000" stroke-width="1.9" stroke-linecap="round"/>
+  <circle cx="12" cy="12" r="1.8" fill="#000"/>
 </svg>
 {%- endcapture -%}
 

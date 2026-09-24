@@ -1,5 +1,8 @@
 # Life Clock
 
+<p align="center"><img src="assets/life-clock-icon.svg" alt="Life Clock icon" width="180"></p>
+
+
 Life Clock is a TRMNL plugin that compresses a statistical lifetime into a 24-hour clock.
 
 Instead of taking life expectancy at birth and treating it as a fixed expiry age, Life Clock uses **age-specific remaining life expectancy E(x)** for the user's current age, sex category and country/area. The result is a population statistic, not an individual prediction.

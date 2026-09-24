@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Life Clock</title>
+  <desc id="desc">A clock face with a partial outer progress ring and one bold hand.</desc>
+  <rect width="512" height="512" fill="#fff"/>
+  <circle cx="256" cy="256" r="218" fill="none" stroke="#e8e8e8" stroke-width="30"/>
+  <circle cx="256" cy="256" r="218" fill="none" stroke="#000" stroke-width="30"
+          stroke-linecap="round" stroke-dasharray="1000 370" transform="rotate(-90 256 256)"/>
+  <g stroke="#000" stroke-linecap="round">
+    <line x1="256" y1="92" x2="256" y2="126" stroke-width="12"/>
+    <line x1="338" y1="114" x2="323" y2="140" stroke-width="9"/>
+    <line x1="398" y1="174" x2="372" y2="189" stroke-width="9"/>
+    <line x1="420" y1="256" x2="386" y2="256" stroke-width="12"/>
+    <line x1="398" y1="338" x2="372" y2="323" stroke-width="9"/>
+    <line x1="338" y1="398" x2="323" y2="372" stroke-width="9"/>
+    <line x1="256" y1="420" x2="256" y2="386" stroke-width="12"/>
+    <line x1="174" y1="398" x2="189" y2="372" stroke-width="9"/>
+    <line x1="114" y1="338" x2="140" y2="323" stroke-width="9"/>
+    <line x1="92" y1="256" x2="126" y2="256" stroke-width="12"/>
+    <line x1="114" y1="174" x2="140" y2="189" stroke-width="9"/>
+    <line x1="174" y1="114" x2="189" y2="140" stroke-width="9"/>
+    <line x1="256" y1="256" x2="357" y2="184" stroke-width="24"/>
+  </g>
+  <circle cx="256" cy="256" r="24" fill="#000"/>
+</svg>
