@@ -5,9 +5,9 @@ dark_mode: 'no'
 static_data: ''
 polling_verb: get
 framework_version: 3.3.2
-serverless_language: ''
+serverless_language: node
 refresh_interval_floor: ''
-polling_url: ''
+polling_url: https://raw.githubusercontent.com/michaelkurath/TRMNL-lifeclock/main/data/countries/{{ country_code }}.json
 polling_headers: ''
 polling_body: ''
 id: 487130
@@ -31,6 +31,42 @@ oauth_token_field_name: ''
 oauth_expiry_field_name: ''
 oauth_expiry_strategy: ''
 oauth_fixed_expiry_ms: ''
+custom_fields:
+- keyname: author_bio
+  field_type: author_bio
+  name: About This Plugin
+  category: life,personal
+  description: Your statistical lifetime compressed into a 24-hour clock. Life Clock uses age-specific remaining life expectancy rather than simply adding life expectancy at birth to your birthday. It is a population statistic, not an individual prediction.
+- keyname: birth_date
+  field_type: date
+  name: Date of birth
+  description: Used by TRMNL Serverless to calculate your age and clock position; it is not included in the life-table polling URL.
+- keyname: sex
+  field_type: select
+  name: Sex in life table
+  description: UN WPP life tables are published in Male and Female categories; select the category to use. This value is not included in the life-table polling URL.
+  options:
+  - Male: male
+  - Female: female
+- keyname: country_code
+  field_type: select
+  name: Country of residence
+  description: Select the country or area whose UN WPP life table should be used.
+  options:
+  # BEGIN GENERATED WPP COUNTRY OPTIONS
+  - Switzerland: CHE
+  # END GENERATED WPP COUNTRY OPTIONS
+- keyname: show_remaining
+  field_type: boolean
+  name: Show statistical years remaining?
+  default: true
+  optional: true
+- keyname: show_horizon
+  field_type: boolean
+  name: Show statistical horizon year?
+  description: Full view only. Shows an approximate statistical year, not a predicted date of death.
+  default: false
+  optional: true
 name: Life Clock
-description: ''
-refresh_interval: 15
+description: Your life on a 24-hour clock
+refresh_interval: 1440
