@@ -1,0 +1,61 @@
+{% if state == 'ok' %}
+<div class="layout layout--col lc-layout lc-full">
+  <header class="lc-full__head">
+    <span class="label label--small lg:label--large lc-kicker">Lifetime in 24 hours</span>
+    <span class="lc-rule"></span>
+    <span class="label label--small lg:label--large lc-kicker">{{ country_name | truncate: 28 }}</span>
+  </header>
+
+  <main class="lc-full__body">
+    <section class="lc-full__dial">
+      <img class="lc-clock w--[300px] lg:w--[540px]" src="data:image/svg+xml;base64,{{ life_clock_svg | base64_encode }}" alt="Life Clock at {{ life_clock }}">
+    </section>
+
+    <section class="lc-full__readout">
+      <div>
+        <div class="value value--xxlarge lg:value--xxxlarge value--tnums lc-time">{{ life_clock }}</div>
+        <div class="description description--large lg:description--xlarge lc-percent">{{ progress_percent }}% lived</div>
+      </div>
+
+      <div>
+        <img class="lc-progress h--[34px] lg:h--[52px]" src="data:image/svg+xml;base64,{{ progress_svg | base64_encode }}" alt="{{ progress_percent }} percent of the current statistical lifetime lived">
+        <div class="description description--small lg:description--base lc-progress-note">{{ clock_remaining }} remains on the statistical 24-hour day.</div>
+      </div>
+
+      <div class="lc-full__stats{% unless show_remaining %} lc-full__stats--two{% endunless %}">
+        <div class="lc-stat">
+          <div class="value value--base lg:value--large value--tnums">{{ age_display }}</div>
+          <div class="label label--small lg:label--base">Age now</div>
+        </div>
+        {% if show_remaining %}
+        <div class="lc-stat">
+          <div class="value value--base lg:value--large value--tnums">{{ remaining_display }}</div>
+          <div class="label label--small lg:label--base">Stat. years left</div>
+        </div>
+        {% endif %}
+        <div class="lc-stat">
+          <div class="value value--base lg:value--large value--tnums">{{ expected_age_display }}</div>
+          <div class="label label--small lg:label--base">Statistical lifetime</div>
+        </div>
+      </div>
+
+      <div class="description description--xsmall lg:description--small lc-note">
+        {{ detail }}{% if show_horizon %} · Statistical horizon ~{{ horizon_year }}{% endif %}
+        {% if data_stale %}<br>Life-table reference year: {{ data_year }}.{% endif %}
+        {% if prototype %}<br><strong>Prototype data — not for release.</strong>{% endif %}
+      </div>
+    </section>
+  </main>
+</div>
+{% else %}
+<div class="layout lc-layout lc-error">
+  <div class="title title--large lg:title--xlarge">{{ headline }}</div>
+  <div class="description lg:description--large">{{ detail }}</div>
+</div>
+{% endif %}
+
+<div class="title_bar">
+  <span class="lc-title-icon">{{ title_icon }}</span>
+  <span class="title">Life Clock</span>
+  <span class="instance">{{ country_name | truncate: 22 }}{% if data_year %} · {{ data_year }}{% endif %}</span>
+</div>
