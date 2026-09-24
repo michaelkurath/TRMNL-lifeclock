@@ -47,7 +47,7 @@ const TEXT = {
     age_now: 'Aktuelles Alter',
     stat_years_left: 'Stat. Jahre übrig',
     stat_lifetime: 'Statistische Lebensdauer',
-    stat_horizon: 'Statistischer Horizont',
+    stat_horizon: 'Stat. Horizont',
     life_table_year: 'Referenzjahr der Sterbetafel',
     prototype_warning: 'Prototypdaten — nicht zur Veröffentlichung.',
     left: 'übrig',
