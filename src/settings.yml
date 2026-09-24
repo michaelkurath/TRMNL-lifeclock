@@ -67,5 +67,5 @@ custom_fields:
   default: false
   optional: true
 name: Life Clock
-description: Your statistical lifetime compressed into 24 hours
+description: Your life on a 24-hour clock
 refresh_interval: 1440
