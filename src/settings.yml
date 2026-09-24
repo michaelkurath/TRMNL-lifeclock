@@ -53,9 +53,7 @@ custom_fields:
   name: Country of residence
   description: Select the country or area whose UN WPP life table should be used.
   options:
-  # BEGIN GENERATED WPP COUNTRY OPTIONS
   - Switzerland: CHE
-  # END GENERATED WPP COUNTRY OPTIONS
 - keyname: show_remaining
   field_type: boolean
   name: Show statistical years remaining?
