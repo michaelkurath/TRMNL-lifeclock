@@ -56,8 +56,13 @@ Date of birth and the selected Male/Female life-table category are handled by TR
 
 Each country/area has its own compact JSON file under `data/countries/`. A TRMNL refresh downloads only the selected country table instead of a global dataset. This keeps the polling payload small and well below TRMNL's external polling size limit.
 
+## Languages
+
+The display supports **English** and **German (Deutsch)**. German mode also uses decimal commas and localizes supported region names from the ISO-2 country code, with the original UN location name as a safe fallback.
+
 ## Settings
 
+- Language / Sprache
 - Date of birth
 - Sex in life table: Male / Female
 - Country of residence

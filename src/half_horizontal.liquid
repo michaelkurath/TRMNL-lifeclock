@@ -4,13 +4,13 @@
     <img class="lc-clock w--40 lg:w--60" src="data:image/svg+xml;base64,{{ life_clock_svg | base64_encode }}" alt="Life Clock at {{ life_clock }}">
   </section>
   <section class="lc-half-h__right">
-    <div class="label label--small lg:label--large lc-kicker">Lifetime in 24 hours</div>
+    <div class="label label--small lg:label--large lc-kicker">{{ labels.lifetime_24h }}</div>
     <div class="value value--large lg:value--xxlarge value--tnums lc-time">{{ life_clock }}</div>
-    <div class="description description--base lg:description--xlarge lc-percent">{{ progress_percent }}% lived</div>
+    <div class="description description--base lg:description--xlarge lc-percent">{{ progress_display }}% {{ labels.lived }}</div>
     <img class="lc-progress hidden lg:visible" src="data:image/svg+xml;base64,{{ progress_svg | base64_encode }}" alt="{{ progress_percent }} percent lived">
     <div class="description description--xsmall lg:description--small lc-note">
-      <span class="lg:hidden">{% if show_remaining %}≈{{ remaining_display }} stat. years left{% else %}{{ clock_remaining }} left{% endif %}</span>
-      <span class="hidden lg:visible">{{ clock_remaining }} left on the statistical day{% if show_remaining %} · ≈{{ remaining_display }} stat. years{% endif %}</span>
+      <span class="lg:hidden">{% if show_remaining %}≈{{ remaining_display }} {{ labels.stat_years_left_short }}{% else %}{{ clock_remaining }} {{ labels.left }}{% endif %}</span>
+      <span class="hidden lg:visible">{{ clock_remaining }} {{ labels.left_day }}{% if show_remaining %} · ≈{{ remaining_display }} {{ labels.stat_years }}{% endif %}</span>
     </div>
   </section>
 </div>

@@ -23,6 +23,7 @@ function input(fields, utcOffset = 0) {
       birth_date: '1980-01-15',
       sex: 'male',
       country_code: 'CHE',
+      language: 'en',
       show_remaining: true,
       show_horizon: false,
       ...fields,
@@ -37,6 +38,9 @@ const result = run(input({}), now);
 assert.equal(result.state, 'ok');
 assert.equal(result.country_code, 'CHE');
 assert.equal(result.country_name, 'Switzerland');
+assert.equal(result.language, 'en');
+assert.equal(result.progress_display, String(result.progress_percent));
+assert.equal(result.labels.age_now, 'Age now');
 assert.equal(result.sex, 'male');
 assert.equal(result.data_year, 2026);
 assert.equal(result.release_ready, true);
@@ -67,6 +71,15 @@ assert(/future/i.test(future.detail));
 const missingSex = run(input({ sex: '' }), now);
 assert.equal(missingSex.state, 'error');
 assert(/sex/i.test(missingSex.detail));
+
+const german = run(input({ language: 'de', sex: 'female' }), now);
+assert.equal(german.state, 'ok');
+assert.equal(german.language, 'de');
+assert.equal(german.country_name, 'Schweiz');
+assert(german.age_display.includes(','));
+assert(german.remaining_display.includes(','));
+assert.equal(german.labels.lived, 'gelebt');
+assert(/Bevölkerungsstatistik/.test(german.detail));
 
 const tooOld = run(input({ birth_date: '1900-01-01' }), now);
 assert.equal(tooOld.state, 'error');

@@ -48,6 +48,15 @@ custom_fields:
   options:
   - Male: male
   - Female: female
+- keyname: language
+  field_type: select
+  name: Language / Sprache
+  description: Language used on the Life Clock display.
+  default: en
+  optional: true
+  options:
+  - English: en
+  - Deutsch: de
 - keyname: country_code
   field_type: select
   name: Country of residence

@@ -29,6 +29,7 @@ SCENARIOS = {
         "birth_date": "1980-01-15",
         "sex": "male",
         "country_code": "CHE",
+        "language": "en",
         "show_remaining": True,
         "show_horizon": False,
     },
@@ -36,6 +37,7 @@ SCENARIOS = {
         "birth_date": "1992-07-12",
         "sex": "female",
         "country_code": "VEN",
+        "language": "en",
         "show_remaining": True,
         "show_horizon": False,
     },
@@ -43,6 +45,7 @@ SCENARIOS = {
         "birth_date": "2006-09-24",
         "sex": "female",
         "country_code": "JPN",
+        "language": "en",
         "show_remaining": True,
         "show_horizon": False,
     },
@@ -50,6 +53,7 @@ SCENARIOS = {
         "birth_date": "1928-02-29",
         "sex": "female",
         "country_code": "JPN",
+        "language": "en",
         "show_remaining": True,
         "show_horizon": True,
     },
@@ -57,13 +61,15 @@ SCENARIOS = {
         "birth_date": "1975-01-01",
         "sex": "male",
         "country_code": "LSO",
+        "language": "en",
         "show_remaining": True,
         "show_horizon": False,
     },
-    "usa-no-years-with-horizon": {
+    "german-che-female-horizon": {
         "birth_date": "1960-12-31",
-        "sex": "male",
-        "country_code": "USA",
+        "sex": "female",
+        "country_code": "CHE",
+        "language": "de",
         "show_remaining": False,
         "show_horizon": True,
     },
@@ -139,6 +145,7 @@ def assert_payload(name: str, fields: dict, data: dict) -> None:
     assert data.get("state") == "ok", (name, data.get("detail"))
     assert data.get("country_code") == fields["country_code"], (name, data.get("country_code"))
     assert data.get("sex") == fields["sex"], (name, data.get("sex"))
+    assert data.get("language") == fields.get("language", "en"), (name, data.get("language"))
     assert data.get("prototype") is False, name
     assert data.get("release_ready") is True, name
     assert data.get("data_year") == 2026, name
@@ -199,6 +206,7 @@ try:
         results[scenario] = {
             "country": data["country_name"],
             "sex": data["sex"],
+            "language": data["language"],
             "age": data["age"],
             "life_clock": data["life_clock"],
             "progress_percent": data["progress_percent"],
@@ -226,6 +234,11 @@ try:
 
                 if not fields["show_remaining"]:
                     assert "Stat. years left" not in html
+
+                if fields.get("language") == "de":
+                    assert "Bevölkerungsstatistik" in html if view == "full" else True
+                    assert "Statistischer Horizont" in html if fields["show_horizon"] and view == "full" else True
+                    assert "Switzerland" not in html
 
                 if view in png_views:
                     render_png(scenario, device, view, spec)

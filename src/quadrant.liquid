@@ -6,8 +6,8 @@
   <section>
     <div class="label label--small lg:label--base lc-kicker">Life Clock</div>
     <div class="value value--large lg:value--xlarge value--tnums lc-time">{{ life_clock }}</div>
-    <div class="description description--base lg:description--large lc-percent">{{ progress_percent }}%</div>
-    <div class="description description--xsmall lg:description--small lc-note">{{ clock_remaining }} left{% if show_remaining %}<br>≈{{ remaining_display }} stat. years{% endif %}</div>
+    <div class="description description--base lg:description--large lc-percent">{{ progress_display }}%</div>
+    <div class="description description--xsmall lg:description--small lc-note">{{ clock_remaining }} {{ labels.left }}{% if show_remaining %}<br>≈{{ remaining_display }} {{ labels.stat_years }}{% endif %}</div>
   </section>
 </div>
 {% else %}

@@ -2,6 +2,61 @@ const MS_DAY = 86400000;
 const DAYS_PER_YEAR = 365.2425;
 const MAX_TABLE_AGE = 100;
 
+const TEXT = {
+  en: {
+    unavailable: 'Life Clock unavailable',
+    check_settings: 'Check your plugin settings and data source.',
+    valid_birth_date: 'Enter a valid date of birth.',
+    future_birth_date: 'Date of birth cannot be in the future.',
+    select_sex: 'Select a supported life-table sex category.',
+    no_table_country: 'No life table is available for',
+    no_table_sex: 'life table is available for',
+    age_limit: 'The current WPP table used by Life Clock supports exact ages through',
+    unusable_age: 'The life table does not contain a usable remaining-life value for this age.',
+    headline: 'Your lifetime in 24 hours',
+    disclaimer: 'Population estimate, not an individual prediction.',
+    lifetime_24h: 'Lifetime in 24 hours',
+    lived: 'lived',
+    remains_day: 'remains on the statistical 24-hour day.',
+    age_now: 'Age now',
+    stat_years_left: 'Stat. years left',
+    stat_lifetime: 'Statistical lifetime',
+    stat_horizon: 'Statistical horizon',
+    life_table_year: 'Life-table reference year',
+    prototype_warning: 'Prototype data — not for release.',
+    left: 'left',
+    left_day: 'left on the statistical day',
+    stat_years: 'stat. years',
+    stat_years_left_short: 'stat. years left',
+  },
+  de: {
+    unavailable: 'Life Clock nicht verfügbar',
+    check_settings: 'Bitte Plugin-Einstellungen und Datenquelle prüfen.',
+    valid_birth_date: 'Bitte ein gültiges Geburtsdatum eingeben.',
+    future_birth_date: 'Das Geburtsdatum darf nicht in der Zukunft liegen.',
+    select_sex: 'Bitte eine unterstützte Geschlechtskategorie der Sterbetafel wählen.',
+    no_table_country: 'Keine Sterbetafel verfügbar für',
+    no_table_sex: 'Sterbetafel verfügbar für',
+    age_limit: 'Die von Life Clock verwendete WPP-Tabelle unterstützt exakte Alter bis',
+    unusable_age: 'Für dieses Alter enthält die Sterbetafel keinen nutzbaren Wert zur Restlebenserwartung.',
+    headline: 'Lebenszeit in 24 Stunden',
+    disclaimer: 'Bevölkerungsstatistik, keine individuelle Prognose.',
+    lifetime_24h: 'Lebenszeit in 24 Stunden',
+    lived: 'gelebt',
+    remains_day: 'verbleiben am statistischen 24-Stunden-Tag.',
+    age_now: 'Aktuelles Alter',
+    stat_years_left: 'Stat. Jahre übrig',
+    stat_lifetime: 'Statistische Lebensdauer',
+    stat_horizon: 'Statistischer Horizont',
+    life_table_year: 'Referenzjahr der Sterbetafel',
+    prototype_warning: 'Prototypdaten — nicht zur Veröffentlichung.',
+    left: 'übrig',
+    left_day: 'übrig am statistischen Tag',
+    stat_years: 'stat. Jahre',
+    stat_years_left_short: 'stat. Jahre übrig',
+  }
+};
+
 function clamp(value, min, max) {
   return Math.min(max, Math.max(min, value));
 }
@@ -99,9 +154,36 @@ function booleanField(value, fallback = true) {
   return String(value).toLowerCase() !== 'false';
 }
 
+function normalizeLanguage(value) {
+  const language = String(value || '').toLowerCase();
+  return language === 'de' ? 'de' : 'en';
+}
+
+function formatDecimal(value, language, digits = 1) {
+  const result = Number(value).toFixed(digits);
+  return language === 'de' ? result.replace('.', ',') : result;
+}
+
+function localizedCountryName(country, language) {
+  const fallback = country?.name || '';
+  if (language !== 'de') return fallback;
+  const iso2 = String(country?.iso2 || '').toUpperCase();
+  if (!/^[A-Z]{2}$/.test(iso2)) return fallback;
+  try {
+    if (typeof Intl !== 'undefined' && typeof Intl.DisplayNames === 'function') {
+      return new Intl.DisplayNames(['de'], { type: 'region' }).of(iso2) || fallback;
+    }
+  } catch (_) {
+    // Production runtimes without Intl.DisplayNames safely keep the UN name.
+  }
+  return fallback;
+}
+
 function run(input, nowMs = Date.now()) {
   input = input || {};
   const fields = input.trmnl?.plugin_settings?.custom_fields_values || input.custom_fields || {};
+  const language = normalizeLanguage(fields.language);
+  const labels = TEXT[language];
   const localNowMs = userLocalNowMs(input, nowMs);
   const birthDate = parseDateOnly(fields.birth_date);
   const sex = String(fields.sex || '').toLowerCase();
@@ -110,58 +192,67 @@ function run(input, nowMs = Date.now()) {
   const directCountry = input.country && String(input.country.code || '').toUpperCase() === countryCode ? input.country : null;
   const country = directCountry || bundledCountry;
   const table = country?.[sex];
+  const countryName = localizedCountryName(country, language) || countryCode;
 
   const base = {
     state: 'error',
-    headline: 'Life Clock unavailable',
-    detail: 'Check your plugin settings and data source.',
+    headline: labels.unavailable,
+    detail: labels.check_settings,
+    labels,
+    language,
     source_label: input.meta?.source_label || 'Life expectancy data',
     source_note: input.meta?.source_note || '',
     prototype: Boolean(input.meta?.prototype),
     release_ready: input.meta?.release_ready === true,
     coverage: input.meta?.coverage || '',
     country_code: countryCode,
-    country_name: country?.name || countryCode,
+    country_name: countryName,
     sex,
-    sex_label: sex === 'female' ? 'Female' : sex === 'male' ? 'Male' : sex,
+    sex_label: sex === 'female'
+      ? (language === 'de' ? 'Weiblich' : 'Female')
+      : sex === 'male'
+        ? (language === 'de' ? 'Männlich' : 'Male')
+        : sex,
     show_remaining: booleanField(fields.show_remaining, true),
     show_horizon: booleanField(fields.show_horizon, false)
   };
 
   if (!birthDate) {
-    base.detail = 'Enter a valid date of birth.';
+    base.detail = labels.valid_birth_date;
     return base;
   }
   if (birthDate.getTime() > localNowMs) {
-    base.detail = 'Date of birth cannot be in the future.';
+    base.detail = labels.future_birth_date;
     return base;
   }
   if (!['male', 'female'].includes(sex)) {
-    base.detail = 'Select a supported life-table sex category.';
+    base.detail = labels.select_sex;
     return base;
   }
   if (!country) {
-    base.detail = `No life table is available for ${countryCode}.`;
+    base.detail = `${labels.no_table_country} ${countryCode}.`;
     return base;
   }
   if (!table) {
-    base.detail = `No ${sex} life table is available for ${country.name}.`;
+    base.detail = language === 'de'
+      ? `Keine ${sex === 'female' ? 'weibliche' : 'männliche'} ${labels.no_table_sex} ${countryName}.`
+      : `No ${sex} ${labels.no_table_sex} ${countryName}.`;
     return base;
   }
 
   const age = exactAgeYears(birthDate, localNowMs);
   if (age < 0) {
-    base.detail = 'Date of birth cannot be in the future.';
+    base.detail = labels.future_birth_date;
     return base;
   }
   if (age > MAX_TABLE_AGE) {
-    base.detail = `The current WPP table used by Life Clock supports exact ages through ${MAX_TABLE_AGE}.`;
+    base.detail = `${labels.age_limit} ${MAX_TABLE_AGE}.`;
     return base;
   }
 
   const remaining = interpolateLifeTable(table, age);
   if (!Number.isFinite(remaining)) {
-    base.detail = 'The life table does not contain a usable remaining-life value for this age.';
+    base.detail = labels.unusable_age;
     return base;
   }
 
@@ -175,17 +266,18 @@ function run(input, nowMs = Date.now()) {
   return {
     ...base,
     state: 'ok',
-    headline: 'Your lifetime in 24 hours',
-    detail: 'Population estimate, not an individual prediction.',
+    headline: labels.headline,
+    detail: labels.disclaimer,
     age: Number(age.toFixed(2)),
-    age_display: age.toFixed(1),
+    age_display: formatDecimal(age, language),
     remaining_years: Number(remaining.toFixed(2)),
-    remaining_display: remaining.toFixed(1),
+    remaining_display: formatDecimal(remaining, language),
     remaining_weeks: Math.max(0, Math.round(remainingWeeks)),
     expected_age: Number(expectedAge.toFixed(2)),
-    expected_age_display: expectedAge.toFixed(1),
+    expected_age_display: formatDecimal(expectedAge, language),
     progress: Number(progress.toFixed(6)),
     progress_percent: Number(percent.toFixed(1)),
+    progress_display: formatDecimal(percent, language),
     remaining_percent: Number((100 - percent).toFixed(1)),
     hand_angle: Number((progress * 360).toFixed(2)),
     life_clock: formatLifeClock(progress),
@@ -206,5 +298,8 @@ if (typeof module !== 'undefined') module.exports = {
   formatLifeClock,
   formatClockRemaining,
   clockMinutes,
-  userLocalNowMs
+  userLocalNowMs,
+  normalizeLanguage,
+  formatDecimal,
+  localizedCountryName
 };
