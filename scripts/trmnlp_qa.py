@@ -226,18 +226,24 @@ try:
                 if scenario == "long-country-ven-female":
                     assert "Venezuela (Bolivarian Republic of)" not in html
 
-                # Horizon is intentionally only shown in full view.
+                # Horizon is intentionally only shown in full view and follows
+                # the selected display language.
+                horizon_label = (
+                    "Statistischer Horizont"
+                    if fields.get("language") == "de"
+                    else "Statistical horizon"
+                )
                 if fields["show_horizon"] and view == "full":
-                    assert "Statistical horizon" in html
+                    assert horizon_label in html
                 if view != "full":
                     assert "Statistical horizon" not in html
+                    assert "Statistischer Horizont" not in html
 
                 if not fields["show_remaining"]:
                     assert "Stat. years left" not in html
 
                 if fields.get("language") == "de":
                     assert "Bevölkerungsstatistik" in html if view == "full" else True
-                    assert "Statistischer Horizont" in html if fields["show_horizon"] and view == "full" else True
                     assert "Switzerland" not in html
 
                 if view in png_views:
