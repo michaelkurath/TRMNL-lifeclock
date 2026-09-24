@@ -9,6 +9,7 @@ const {
   interpolateLifeTable,
   formatLifeClock,
   formatClockRemaining,
+  userLocalNowMs,
 } = require('../src/transform.js');
 
 const che = JSON.parse(
@@ -72,10 +73,11 @@ assert.equal(tooOld.state, 'error');
 assert(/100/.test(tooOld.detail));
 
 const beforeLocalBirthday = Date.UTC(2026, 0, 14, 23, 30, 0);
-const utc = run(input({}, 0), beforeLocalBirthday);
-const zurichWinter = run(input({}, 3600), beforeLocalBirthday);
-assert(utc.age < 46);
-assert(zurichWinter.age >= 46);
+const dob = parseDateOnly('1980-01-15');
+const utcNow = userLocalNowMs(input({}, 0), beforeLocalBirthday);
+const zurichNow = userLocalNowMs(input({}, 3600), beforeLocalBirthday);
+assert(exactAgeYears(dob, utcNow) < 46);
+assert(exactAgeYears(dob, zurichNow) >= 46);
 
 console.log(
   'PASS: transform calculation, interpolation, leap-day, local-date, and error-state tests'

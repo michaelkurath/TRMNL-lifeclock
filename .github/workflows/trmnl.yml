@@ -42,7 +42,6 @@ jobs:
       - name: Render OG and TRMNL X with device classes
         run: python3 scripts/trmnlp_qa.py
       - uses: actions/upload-artifact@v4
-        if: always()
         with:
           name: trmnlp-renders
           path: qa-artifacts/

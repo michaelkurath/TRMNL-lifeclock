@@ -5,6 +5,8 @@ on:
     branches: [main]
     paths:
       - "scripts/build_wpp_life_expectancy.py"
+      - "scripts/validate_data.py"
+      - "test/transform.test.js"
       - ".github/workflows/wpp-data.yml"
   workflow_dispatch:
 
