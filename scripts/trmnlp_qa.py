@@ -229,7 +229,7 @@ try:
                 # Horizon is intentionally only shown in full view and follows
                 # the selected display language.
                 horizon_label = (
-                    "Statistischer Horizont"
+                    "Stat. Horizont"
                     if fields.get("language") == "de"
                     else "Statistical horizon"
                 )
