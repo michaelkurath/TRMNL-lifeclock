@@ -1,0 +1,44 @@
+Creative Commons Attribution 4.0 International (CC BY 4.0)
+
+Copyright (c) 2026 Michael Kurath
+
+The original visual design, code, data-processing logic, markup, and
+documentation in this repository are licensed under the Creative Commons
+Attribution 4.0 International License.
+
+You are free to:
+
+- Share — copy and redistribute the original material in any medium or format.
+- Adapt — remix, transform, and build upon the original material for any purpose.
+
+Under the following terms:
+
+- Attribution — You must give appropriate credit, provide a link to the
+  license, and indicate if changes were made.
+
+License deed:
+https://creativecommons.org/licenses/by/4.0/
+
+Full legal code:
+https://creativecommons.org/licenses/by/4.0/legalcode
+
+Suggested attribution:
+"Life Clock" by Michael Kurath,
+https://github.com/michaelkurath/TRMNL-lifeclock,
+licensed under CC BY 4.0.
+
+This project is published in accordance with the TRMNL Community Plugin
+License:
+https://trmnl.com/plugin-license
+
+THIRD-PARTY DATA
+
+United Nations World Population Prospects data stored under data/countries/
+and described by data/manifest.json are third-party material and are NOT
+relicensed under CC BY 4.0 by this repository. They remain subject to the
+United Nations Creative Commons Attribution 3.0 IGO (CC BY 3.0 IGO) terms:
+https://creativecommons.org/licenses/by/3.0/igo/
+
+This license does not grant rights to third-party names, trademarks, logos,
+or other third-party material. Those remain subject to their respective
+owners' terms.

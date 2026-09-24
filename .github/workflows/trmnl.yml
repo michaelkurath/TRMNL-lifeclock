@@ -6,14 +6,16 @@ on:
     paths:
       - "src/**"
       - "data/**"
-      - "scripts/trmnlp_qa.py"
+      - "scripts/**"
+      - "test/**"
       - ".trmnlp.yml"
       - ".github/workflows/trmnl.yml"
   pull_request:
     paths:
       - "src/**"
       - "data/**"
-      - "scripts/trmnlp_qa.py"
+      - "scripts/**"
+      - "test/**"
       - ".trmnlp.yml"
       - ".github/workflows/trmnl.yml"
   workflow_dispatch:
@@ -24,6 +26,10 @@ jobs:
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v6
+      - name: Validate WPP runtime data
+        run: python3 scripts/validate_data.py
+      - name: Test serverless calculation
+        run: node test/transform.test.js
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: "4.0"

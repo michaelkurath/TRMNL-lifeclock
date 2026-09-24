@@ -19,21 +19,17 @@ jobs:
       - uses: actions/checkout@v6
       - name: Build from official UN WPP 2024 bulk files
         run: python3 scripts/build_wpp_life_expectancy.py 2026
-      - name: Validate generated repository state
+      - name: Validate generated dataset
         run: |
-          test "$(find data/countries -maxdepth 1 -name '*.json' | wc -l)" -eq 237
-          python3 - <<'PY'
-          import json
-          from pathlib import Path
-          m=json.loads(Path("data/manifest.json").read_text())
-          assert m["country_count"] == 237
-          assert m["year"] == 2026
-          assert all(len(json.loads(p.read_text())["country"][s]) == 101
-                     for p in Path("data/countries").glob("*.json")
-                     for s in ("male","female"))
-          print("PASS: manifest and 237 runtime files validated")
-          PY
+          python3 scripts/validate_data.py
+          node test/transform.test.js
           git diff --check
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "4.0"
+      - run: gem install trmnl_preview
+      - name: Lint generated TRMNL settings
+        run: trmnlp lint
       - name: Commit generated WPP data
         run: |
           git config user.name "life-clock-data[bot]"
