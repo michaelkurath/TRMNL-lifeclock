@@ -6,12 +6,14 @@ on:
     paths:
       - "src/**"
       - "data/**"
+      - "scripts/trmnlp_qa.py"
       - ".trmnlp.yml"
       - ".github/workflows/trmnl.yml"
   pull_request:
     paths:
       - "src/**"
       - "data/**"
+      - "scripts/trmnlp_qa.py"
       - ".trmnlp.yml"
       - ".github/workflows/trmnl.yml"
   workflow_dispatch:
@@ -19,6 +21,7 @@ on:
 jobs:
   trmnlp:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v6
       - uses: ruby/setup-ruby@v1
@@ -30,18 +33,12 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y imagemagick
       - run: trmnlp lint
-      - name: Render OG PNGs
-        run: |
-          trmnlp build --png --width 800 --height 480 --color-depth 1
-          mv _build _build-og
-      - name: Render TRMNL X PNGs
-        run: |
-          trmnlp build --png --width 1872 --height 1404 --color-depth 1
-          mv _build _build-x
+      - name: Render OG and TRMNL X with device classes
+        run: python3 scripts/trmnlp_qa.py
       - uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: trmnlp-renders
-          path: |
-            _build-og
-            _build-x
+          path: qa-artifacts/
           if-no-files-found: error
+          retention-days: 30

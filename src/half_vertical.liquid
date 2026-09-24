@@ -1,10 +1,10 @@
 {% if state == 'ok' %}
 <div class="layout lc-layout lc-half-v">
   <div class="label label--small lg:label--large lc-kicker">Lifetime in 24 hours</div>
-  <img class="lc-clock w--[210px] lg:w--[440px]" src="data:image/svg+xml;base64,{{ life_clock_svg | base64_encode }}" alt="Life Clock at {{ life_clock }}">
-  <div class="value value--xlarge lg:value--xxlarge value--tnums lc-time">{{ life_clock }}</div>
-  <div class="description description--large lg:description--xlarge lc-percent">{{ progress_percent }}% lived</div>
-  <img class="lc-progress w--[300px] lg:w--[560px] h--[28px] lg:h--[46px]" src="data:image/svg+xml;base64,{{ progress_svg | base64_encode }}" alt="{{ progress_percent }} percent lived">
+  <img class="lc-clock w--[160px] lg:w--[440px]" src="data:image/svg+xml;base64,{{ life_clock_svg | base64_encode }}" alt="Life Clock at {{ life_clock }}">
+  <div class="value value--large lg:value--xxlarge value--tnums lc-time">{{ life_clock }}</div>
+  <div class="description description--base lg:description--xlarge lc-percent">{{ progress_percent }}% lived</div>
+  <img class="lc-progress w--[260px] lg:w--[560px] h--[20px] lg:h--[46px]" src="data:image/svg+xml;base64,{{ progress_svg | base64_encode }}" alt="{{ progress_percent }} percent lived">
   <div class="description description--xsmall lg:description--small lc-note">{{ clock_remaining }} left{% if show_remaining %} · ≈{{ remaining_display }} stat. years{% endif %}</div>
   <div class="hidden lg:visible w--full">
     <div class="lc-half-v__stats">
