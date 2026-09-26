@@ -4,7 +4,7 @@
     <img class="image w--40 lg:w--60" src="data:image/svg+xml;base64,{{ life_clock_svg | base64_encode }}" alt="Life Clock at {{ life_clock }}">
   </section>
 
-  <section class="flex flex--col flex--left flex--center-y gap--small grow">
+  <section class="flex flex--col flex--left flex--center-y gap--xsmall lg:gap--small grow">
     <div class="label label--small lg:label--large text--bold">{{ labels.lifetime_24h }}</div>
     <div class="value value--large lg:value--xxlarge value--tnums" data-fit-value="true">{{ life_clock }}</div>
     <div class="description description--base lg:description--xlarge text--bold">{{ progress_display }}% {{ labels.lived }}</div>
