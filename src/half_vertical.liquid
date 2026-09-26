@@ -1,22 +1,22 @@
 {% if state == 'ok' %}
-<div class="layout layout--col layout--center-x gap--distribute text--center">
-  <div class="label label--small lg:label--large text--bold">{{ labels.lifetime_24h }}</div>
+<div class="layout layout--col layout--center-x gap--distribute">
+  <div class="label label--small lg:label--large text--bold text--center">{{ labels.lifetime_24h }}</div>
   <img class="image w--36 lg:w--64" src="data:image/svg+xml;base64,{{ life_clock_svg | base64_encode }}" alt="Life Clock at {{ life_clock }}">
-  <div class="value value--large lg:value--xxlarge value--tnums">{{ life_clock }}</div>
-  <div class="description description--base lg:description--xlarge text--bold">{{ progress_display }}% {{ labels.lived }}</div>
+  <div class="value value--large lg:value--xxlarge value--tnums text--center" data-fit-value="true">{{ life_clock }}</div>
+  <div class="description description--base lg:description--xlarge text--bold text--center">{{ progress_display }}% {{ labels.lived }}</div>
   <img class="image w--60 lg:w--80 h--5 lg:h--12" src="data:image/svg+xml;base64,{{ progress_svg | base64_encode }}" alt="{{ progress_percent }} percent lived">
-  <div class="description description--xsmall lg:description--small">{{ clock_remaining }} {{ labels.left }}{% if show_remaining %} · ≈{{ remaining_display }} {{ labels.stat_years }}{% endif %}</div>
+  <div class="description description--xsmall lg:description--small text--center">{{ clock_remaining }} {{ labels.left }}{% if show_remaining %} · ≈{{ remaining_display }} {{ labels.stat_years }}{% endif %}</div>
 
   <div class="hidden lg:visible w--full">
     <div class="grid grid--cols-2 gap--xlarge w--full">
       <div class="text--left">
         <div class="divider"></div>
-        <div class="value value--large value--tnums">{{ age_display }}</div>
+        <div class="value value--large value--tnums" data-fit-value="true">{{ age_display }}</div>
         <div class="label label--base">{{ labels.age_now }}</div>
       </div>
       <div class="text--left">
         <div class="divider"></div>
-        <div class="value value--large value--tnums">{{ expected_age_display }}</div>
+        <div class="value value--large value--tnums" data-fit-value="true">{{ expected_age_display }}</div>
         <div class="label label--base">{{ labels.stat_lifetime }}</div>
       </div>
     </div>

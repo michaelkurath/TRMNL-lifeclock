@@ -1,9 +1,11 @@
 {% if state == 'ok' %}
 <div class="layout layout--col layout--stretch-x gap--large">
-  <header class="flex flex--row flex--center-y gap--large w--full no-shrink">
-    <span class="label label--small lg:label--large text--bold">{{ labels.lifetime_24h }}</span>
-    <span class="divider stretch-x"></span>
-    <span class="label label--small lg:label--large text--bold">{{ country_name | truncate: 28 }}</span>
+  <header class="flex flex--col flex--left gap--small w--full no-shrink">
+    <div class="flex flex--row flex--between w--full">
+      <span class="label label--small lg:label--large text--bold">{{ labels.lifetime_24h }}</span>
+      <span class="label label--small lg:label--large text--bold">{{ country_name | truncate: 28 }}</span>
+    </div>
+    <div class="divider"></div>
   </header>
 
   <main class="grid grid--cols-12 gap--xlarge stretch">
@@ -13,7 +15,7 @@
 
     <section class="col--span-7 flex flex--col flex--left flex--between gap--large">
       <div class="flex flex--col flex--left gap--small">
-        <div class="value value--xxlarge lg:value--xxxlarge value--tnums">{{ life_clock }}</div>
+        <div class="value value--xxlarge lg:value--xxxlarge value--tnums" data-fit-value="true">{{ life_clock }}</div>
         <div class="description description--large lg:description--xlarge text--bold">{{ progress_display }}% {{ labels.lived }}</div>
       </div>
 
@@ -25,19 +27,19 @@
       <div class="grid {% if show_remaining %}grid--cols-3{% else %}grid--cols-2{% endif %} gap--large w--full">
         <div class="flex flex--col flex--left gap--xsmall">
           <div class="divider"></div>
-          <div class="value value--base lg:value--large value--tnums">{{ age_display }}</div>
+          <div class="value value--base lg:value--large value--tnums" data-fit-value="true">{{ age_display }}</div>
           <div class="label label--small lg:label--base">{{ labels.age_now }}</div>
         </div>
         {% if show_remaining %}
         <div class="flex flex--col flex--left gap--xsmall">
           <div class="divider"></div>
-          <div class="value value--base lg:value--large value--tnums">{{ remaining_display }}</div>
+          <div class="value value--base lg:value--large value--tnums" data-fit-value="true">{{ remaining_display }}</div>
           <div class="label label--small lg:label--base">{{ labels.stat_years_left }}</div>
         </div>
         {% endif %}
         <div class="flex flex--col flex--left gap--xsmall">
           <div class="divider"></div>
-          <div class="value value--base lg:value--large value--tnums">{{ expected_age_display }}</div>
+          <div class="value value--base lg:value--large value--tnums" data-fit-value="true">{{ expected_age_display }}</div>
           <div class="label label--small lg:label--base">{{ labels.stat_lifetime }}</div>
         </div>
       </div>

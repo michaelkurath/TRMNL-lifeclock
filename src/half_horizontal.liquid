@@ -6,7 +6,7 @@
 
   <section class="flex flex--col flex--left flex--center-y gap--small grow">
     <div class="label label--small lg:label--large text--bold">{{ labels.lifetime_24h }}</div>
-    <div class="value value--large lg:value--xxlarge value--tnums">{{ life_clock }}</div>
+    <div class="value value--large lg:value--xxlarge value--tnums" data-fit-value="true">{{ life_clock }}</div>
     <div class="description description--base lg:description--xlarge text--bold">{{ progress_display }}% {{ labels.lived }}</div>
     <img class="image w--full hidden lg:visible" src="data:image/svg+xml;base64,{{ progress_svg | base64_encode }}" alt="{{ progress_percent }} percent lived">
     <div class="description description--xsmall lg:description--small">

@@ -6,7 +6,7 @@
 
   <section class="flex flex--col flex--left flex--center-y gap--xsmall grow">
     <div class="label label--small lg:label--base text--bold">Life Clock</div>
-    <div class="value value--large lg:value--xlarge value--tnums">{{ life_clock }}</div>
+    <div class="value value--large lg:value--xlarge value--tnums" data-fit-value="true">{{ life_clock }}</div>
     <div class="description description--base lg:description--large text--bold">{{ progress_display }}%</div>
     <div class="description description--xsmall lg:description--small">{{ clock_remaining }} {{ labels.left }}{% if show_remaining %}<br>≈{{ remaining_display }} {{ labels.stat_years }}{% endif %}</div>
   </section>

@@ -36,7 +36,7 @@ custom_fields:
   field_type: author_bio
   name: About This Plugin
   category: life,personal
-  description: Your statistical lifetime compressed into a 24-hour clock. Life Clock uses age-specific remaining life expectancy rather than simply adding life expectancy at birth to your birthday. It is a population statistic, not an individual prediction.
+  description: Your statistical lifetime on a 24-hour clock, using age-specific UN life expectancy data.
 - keyname: birth_date
   field_type: date
   name: Date of birth
