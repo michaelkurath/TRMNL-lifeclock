@@ -24,7 +24,8 @@ DEVICES = {
     "og": {
         "classes": "screen screen--og screen--md screen--density-1x screen--1bit",
         "depth": 1,
-        "sizes": {
+        "viewport": (800, 480),
+        "slots": {
             "full": (800, 480),
             "half_horizontal": (800, 240),
             "half_vertical": (400, 480),
@@ -34,7 +35,8 @@ DEVICES = {
     "x": {
         "classes": "screen screen--v2 screen--lg screen--density-2x screen--4bit",
         "depth": 4,
-        "sizes": {
+        "viewport": (1872, 1404),
+        "slots": {
             "full": (1872, 1404),
             "half_horizontal": (1872, 702),
             "half_vertical": (936, 1404),
@@ -95,7 +97,8 @@ SCENARIOS = {
 
 # Baseline gets every PNG; stress scenarios also save the layouts most sensitive
 # to text, vertical pressure, and wide/short composition. HTML is still rendered
-# for every view/device. Each view uses its actual TRMNL slot dimensions.
+# for every view/device. TRMNLP renders against the full device viewport; saved
+# PNGs are then cropped to the actual TRMNL slot dimensions.
 PNG_VIEWS = {
     "baseline-che-male": set(VIEWS),
 }
@@ -175,7 +178,7 @@ def assert_payload(name: str, fields: dict, data: dict) -> None:
 
 
 def render_html(device: str, view: str, spec: dict) -> str:
-    width, height = spec["sizes"][view]
+    width, height = spec["viewport"]
     depth = spec["depth"]
     classes = spec["classes"]
     params = urlencode(
@@ -198,14 +201,15 @@ def render_html(device: str, view: str, spec: dict) -> str:
 def render_png(
     scenario: str, device: str, view: str, spec: dict
 ) -> None:
-    width, height = spec["sizes"][view]
+    viewport_width, viewport_height = spec["viewport"]
+    slot_width, slot_height = spec["slots"][view]
     depth = spec["depth"]
     classes = spec["classes"]
     params = urlencode(
         {
             "screen_classes": classes,
-            "width": width,
-            "height": height,
+            "width": viewport_width,
+            "height": viewport_height,
             "color_depth": depth,
         }
     )
@@ -213,9 +217,31 @@ def render_png(
         f"http://127.0.0.1:4567/render/{view}.png?{params}", timeout=120
     ) as response:
         png = response.read()
+
     assert png[:8] == b"\x89PNG\r\n\x1a\n"
-    assert struct.unpack(">II", png[16:24]) == (width, height)
-    (OUT / f"{scenario}-{device}-{view}.png").write_bytes(png)
+    assert struct.unpack(">II", png[16:24]) == (viewport_width, viewport_height)
+
+    if (slot_width, slot_height) != (viewport_width, viewport_height):
+        cropped = subprocess.run(
+            [
+                "convert",
+                "png:-",
+                "-crop",
+                f"{slot_width}x{slot_height}+0+0",
+                "+repage",
+                "png:-",
+            ],
+            input=png,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            check=True,
+        ).stdout
+    else:
+        cropped = png
+
+    assert cropped[:8] == b"\x89PNG\r\n\x1a\n"
+    assert struct.unpack(">II", cropped[16:24]) == (slot_width, slot_height)
+    (OUT / f"{scenario}-{device}-{view}.png").write_bytes(cropped)
 
 
 try:
