@@ -21,8 +21,26 @@ from urllib.request import urlopen
 
 VIEWS = ("full", "half_horizontal", "half_vertical", "quadrant")
 DEVICES = {
-    "og": (800, 480, 1, "screen screen--og screen--md screen--density-1x screen--1bit"),
-    "x": (1872, 1404, 4, "screen screen--v2 screen--lg screen--density-2x screen--4bit"),
+    "og": {
+        "classes": "screen screen--og screen--md screen--density-1x screen--1bit",
+        "depth": 1,
+        "sizes": {
+            "full": (800, 480),
+            "half_horizontal": (800, 240),
+            "half_vertical": (400, 480),
+            "quadrant": (400, 240),
+        },
+    },
+    "x": {
+        "classes": "screen screen--v2 screen--lg screen--density-2x screen--4bit",
+        "depth": 4,
+        "sizes": {
+            "full": (1872, 1404),
+            "half_horizontal": (1872, 702),
+            "half_vertical": (936, 1404),
+            "quadrant": (936, 702),
+        },
+    },
 }
 SCENARIOS = {
     "baseline-che-male": {
@@ -75,12 +93,13 @@ SCENARIOS = {
     },
 }
 
-# Baseline gets every PNG; stress scenarios render the layouts most sensitive
-# to text/vertical pressure. HTML is still rendered for every view/device.
+# Baseline gets every PNG; stress scenarios also save the layouts most sensitive
+# to text, vertical pressure, and wide/short composition. HTML is still rendered
+# for every view/device. Each view uses its actual TRMNL slot dimensions.
 PNG_VIEWS = {
     "baseline-che-male": set(VIEWS),
 }
-STRESS_PNG_VIEWS = {"full", "half_vertical"}
+STRESS_PNG_VIEWS = {"full", "half_horizontal", "half_vertical"}
 
 ROOT = Path(__file__).resolve().parent.parent
 CONFIG = ROOT / ".trmnlp.yml"
@@ -155,8 +174,10 @@ def assert_payload(name: str, fields: dict, data: dict) -> None:
     assert data.get("show_horizon") is bool(fields["show_horizon"])
 
 
-def render_html(device: str, view: str, spec: tuple[int, int, int, str]) -> str:
-    width, height, depth, classes = spec
+def render_html(device: str, view: str, spec: dict) -> str:
+    width, height = spec["sizes"][view]
+    depth = spec["depth"]
+    classes = spec["classes"]
     params = urlencode(
         {
             "screen_classes": classes,
@@ -175,9 +196,11 @@ def render_html(device: str, view: str, spec: tuple[int, int, int, str]) -> str:
 
 
 def render_png(
-    scenario: str, device: str, view: str, spec: tuple[int, int, int, str]
+    scenario: str, device: str, view: str, spec: dict
 ) -> None:
-    width, height, depth, classes = spec
+    width, height = spec["sizes"][view]
+    depth = spec["depth"]
+    classes = spec["classes"]
     params = urlencode(
         {
             "screen_classes": classes,
