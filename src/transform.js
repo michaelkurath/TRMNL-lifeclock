@@ -8,7 +8,7 @@ const TEXT = {
     check_settings: 'Review plugin settings and data.',
     valid_birth_date: 'Enter a valid birth date.',
     future_birth_date: 'Birth date is in the future.',
-    select_sex: 'Select Male or Female.',
+    select_sex: 'Select a sex category: Male or Female.',
     no_table_country: 'No life table is available for',
     no_table_sex: 'life table is available for',
     age_limit: 'Life table supports ages through',
