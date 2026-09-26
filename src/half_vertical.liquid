@@ -1,18 +1,21 @@
 {% if state == 'ok' %}
-<div class="layout lc-layout lc-half-v">
-  <div class="label label--small lg:label--large lc-kicker">{{ labels.lifetime_24h }}</div>
-  <img class="lc-clock w--36 lg:w--64" src="data:image/svg+xml;base64,{{ life_clock_svg | base64_encode }}" alt="Life Clock at {{ life_clock }}">
-  <div class="value value--large lg:value--xxlarge value--tnums lc-time">{{ life_clock }}</div>
-  <div class="description description--base lg:description--xlarge lc-percent">{{ progress_display }}% {{ labels.lived }}</div>
-  <img class="lc-progress w--60 lg:w--80 h--5 lg:h--12" src="data:image/svg+xml;base64,{{ progress_svg | base64_encode }}" alt="{{ progress_percent }} percent lived">
-  <div class="description description--xsmall lg:description--small lc-note">{{ clock_remaining }} {{ labels.left }}{% if show_remaining %} · ≈{{ remaining_display }} {{ labels.stat_years }}{% endif %}</div>
+<div class="layout layout--col layout--center-x gap--distribute text--center">
+  <div class="label label--small lg:label--large text--bold">{{ labels.lifetime_24h }}</div>
+  <img class="image w--36 lg:w--64" src="data:image/svg+xml;base64,{{ life_clock_svg | base64_encode }}" alt="Life Clock at {{ life_clock }}">
+  <div class="value value--large lg:value--xxlarge value--tnums">{{ life_clock }}</div>
+  <div class="description description--base lg:description--xlarge text--bold">{{ progress_display }}% {{ labels.lived }}</div>
+  <img class="image w--60 lg:w--80 h--5 lg:h--12" src="data:image/svg+xml;base64,{{ progress_svg | base64_encode }}" alt="{{ progress_percent }} percent lived">
+  <div class="description description--xsmall lg:description--small">{{ clock_remaining }} {{ labels.left }}{% if show_remaining %} · ≈{{ remaining_display }} {{ labels.stat_years }}{% endif %}</div>
+
   <div class="hidden lg:visible w--full">
-    <div class="lc-half-v__stats">
-      <div class="lc-stat">
+    <div class="grid grid--cols-2 gap--xlarge w--full">
+      <div class="text--left">
+        <div class="divider"></div>
         <div class="value value--large value--tnums">{{ age_display }}</div>
         <div class="label label--base">{{ labels.age_now }}</div>
       </div>
-      <div class="lc-stat">
+      <div class="text--left">
+        <div class="divider"></div>
         <div class="value value--large value--tnums">{{ expected_age_display }}</div>
         <div class="label label--base">{{ labels.stat_lifetime }}</div>
       </div>
@@ -20,11 +23,10 @@
   </div>
 </div>
 {% else %}
-<div class="layout lc-layout lc-error"><div class="title title--large">{{ headline }}</div><div class="description">{{ detail }}</div></div>
+<div class="layout layout--col layout--center gap--small">
+  <div class="title title--large">{{ headline }}</div>
+  <div class="description">{{ detail }}</div>
+</div>
 {% endif %}
 
-<div class="title_bar">
-  <span class="lc-title-icon">{{ title_icon }}</span>
-  <span class="title">Life Clock</span>
-  <span class="instance">{{ country_name | truncate: 24 }}{% if data_year %} · {{ data_year }}{% endif %}</span>
-</div>
+{% render 'title_bar' with title_icon:title_icon, country_name:country_name, data_year:data_year %}

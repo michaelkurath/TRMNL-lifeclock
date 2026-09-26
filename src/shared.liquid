@@ -50,38 +50,10 @@ TRMNLP custom-field references (used by Serverless): birth_date sex country_code
 </svg>
 {%- endcapture -%}
 
-<style>
-  .lc-layout { box-sizing: border-box; height: 100%; width: 100%; color: #000; }
-  .lc-layout * { box-sizing: border-box; }
-  .lc-clock { display: block; max-width: 100%; height: auto; }
-  .lc-progress { display: block; width: 100%; }
-  .lc-kicker { font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
-  .lc-time { font-weight: 700; letter-spacing: -.045em; line-height: .92; }
-  .lc-percent { font-weight: 700; line-height: 1; }
-  .lc-note { line-height: 1.2; }
-  .lc-rule { height: 2px; background: #000; width: 100%; }
-  .lc-title-icon { display: inline-flex; width: 24px; height: 24px; }
-
-  .lc-full { display: flex; flex-direction: column; gap: 12px; }
-  .lc-full__head { display: flex; align-items: center; gap: 14px; }
-  .lc-full__head .lc-rule { flex: 1; }
-  .lc-full__body { display: grid; grid-template-columns: minmax(0, 42fr) minmax(0, 58fr); gap: 24px; flex: 1; min-height: 0; }
-  .lc-full__dial { display: grid; place-items: center; min-width: 0; }
-  .lc-full__readout { display: grid; align-content: space-between; min-width: 0; }
-  .lc-full__stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-  .lc-full__stats--two { grid-template-columns: repeat(2, 1fr); }
-  .lc-stat { border-top: 2px solid #000; }
-
-  .lc-half-h { display: grid; grid-template-columns: minmax(0, 42fr) minmax(0, 58fr); gap: 18px; align-items: center; }
-  .lc-half-h > section:first-child { display: grid; place-items: center; }
-  .lc-half-h__right { min-width: 0; }
-
-  .lc-half-v { display: grid; gap: 6px; justify-items: center; align-content: space-between; text-align: center; }
-  .lc-half-v__stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; width: 100%; max-width: 620px; }
-  .lc-half-v__stats .lc-stat { text-align: left; }
-
-  .lc-quadrant { display: grid; grid-template-columns: minmax(0, 44fr) minmax(0, 56fr); gap: 12px; align-items: center; }
-  .lc-quadrant > section:first-child { display: grid; place-items: center; }
-
-  .lc-error { display: grid; align-content: center; gap: 12px; height: 100%; }
-</style>
+{% template title_bar %}
+<div class="title_bar">
+  <img class="image" src="data:image/svg+xml;base64,{{ title_icon | base64_encode }}" alt="">
+  <span class="title">Life Clock</span>
+  <span class="instance">{{ country_name | truncate: 24 }}{% if data_year %} · {{ data_year }}{% endif %}</span>
+</div>
+{% endtemplate %}
