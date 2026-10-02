@@ -43,6 +43,28 @@ DEVICES = {
             "quadrant": (936, 702),
         },
     },
+    "og_portrait": {
+        "classes": "screen screen--og screen--md screen--portrait screen--density-1x screen--1bit",
+        "depth": 1,
+        "viewport": (480, 800),
+        "slots": {
+            "full": (480, 800),
+            "half_horizontal": (480, 400),
+            "half_vertical": (240, 800),
+            "quadrant": (240, 400),
+        },
+    },
+    "x_portrait": {
+        "classes": "screen screen--v2 screen--lg screen--portrait screen--density-2x screen--4bit",
+        "depth": 4,
+        "viewport": (1404, 1872),
+        "slots": {
+            "full": (1404, 1872),
+            "half_horizontal": (1404, 936),
+            "half_vertical": (702, 1872),
+            "quadrant": (702, 936),
+        },
+    },
 }
 SCENARIOS = {
     "baseline-che-male": {
@@ -305,7 +327,7 @@ try:
     )
     print(
         f"PASS: {len(SCENARIOS)} scenarios; {semantic_renders} HTML renders; "
-        f"{png_renders} genuine TRMNLP PNG renders across OG and TRMNL X"
+        f"{png_renders} genuine TRMNLP PNG renders across OG/TRMNL X landscape and portrait"
     )
 finally:
     stop()

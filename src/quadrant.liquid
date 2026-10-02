@@ -1,14 +1,14 @@
 {% if state == 'ok' %}
 <div class="layout layout--row portrait:layout--col gap--large">
-  <section class="flex flex--center no-shrink w--36 lg:w--52">
-    <img class="image w--32 lg:w--48" src="data:image/svg+xml;base64,{{ life_clock_svg | base64_encode }}" alt="Life Clock at {{ life_clock }}">
+  <section class="flex flex--center no-shrink w--36 lg:w--60">
+    <img class="image w--32 lg:w--56" src="data:image/svg+xml;base64,{{ life_clock_svg | base64_encode }}" alt="Life Clock at {{ life_clock }}">
   </section>
 
   <section class="flex flex--col flex--left flex--center-y gap--xsmall grow">
-    <div class="label label--small lg:label--base text--bold">Life Clock</div>
-    <div class="value value--large lg:value--xlarge value--tnums" data-fit-value="true">{{ life_clock }}</div>
-    <div class="description description--base lg:description--large text--bold">{{ progress_display }}%</div>
-    <div class="description description--xsmall lg:description--small">{{ clock_remaining }} {{ labels.left }}{% if show_remaining %}<br>≈{{ remaining_display }} {{ labels.stat_years }}{% endif %}</div>
+    <div class="label label--small lg:label--large text--bold">Life Clock</div>
+    <div class="value value--large lg:value--xxlarge value--tnums" data-fit-value="true">{{ life_clock }}</div>
+    <div class="description description--base lg:description--xlarge text--bold">{{ progress_display }}%</div>
+    <div class="description description--xsmall lg:description--base">{{ clock_remaining }} {{ labels.left }}{% if show_remaining %}<br>≈{{ remaining_display }} {{ labels.stat_years }}{% endif %}</div>
   </section>
 </div>
 {% else %}

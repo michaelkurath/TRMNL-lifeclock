@@ -8,12 +8,12 @@
     <div class="divider"></div>
   </header>
 
-  <main class="grid grid--cols-12 gap--xlarge stretch">
-    <section class="col--span-5 flex flex--center">
-      <img class="image w--72 lg:w--96" src="data:image/svg+xml;base64,{{ life_clock_svg | base64_encode }}" alt="Life Clock at {{ life_clock }}">
+  <main class="grid grid--cols-12 gap--xlarge lg:portrait:gap--large stretch">
+    <section class="col--span-5 lg:portrait:col--span-12 flex flex--center">
+      <img class="image w--72 lg:w--96 lg:portrait:w--80" src="data:image/svg+xml;base64,{{ life_clock_svg | base64_encode }}" alt="Life Clock at {{ life_clock }}">
     </section>
 
-    <section class="col--span-7 flex flex--col flex--left flex--between gap--large">
+    <section class="col--span-7 lg:portrait:col--span-12 flex flex--col flex--left flex--between gap--large lg:portrait:gap--xlarge">
       <div class="flex flex--col flex--left gap--small">
         <div class="value value--xxlarge lg:value--xxxlarge value--tnums" data-fit-value="true">{{ life_clock }}</div>
         <div class="description description--large lg:description--xlarge text--bold">{{ progress_display }}% {{ labels.lived }}</div>

@@ -37,6 +37,7 @@ custom_fields:
   name: About This Plugin
   category: life,personal
   description: Your statistical lifetime on a 24-hour clock, using age-specific UN life expectancy data.
+  github_url: https://github.com/michaelkurath/TRMNL-lifeclock
 - keyname: birth_date
   field_type: date
   name: Date of birth
