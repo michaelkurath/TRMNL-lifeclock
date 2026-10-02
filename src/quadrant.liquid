@@ -6,9 +6,9 @@
 
   <section class="flex flex--col flex--left flex--center-y gap--xsmall grow">
     <div class="label label--small lg:label--large text--bold">Life Clock</div>
-    <div class="value value--large lg:value--xxlarge value--tnums" data-fit-value="true">{{ life_clock }}</div>
-    <div class="description description--base lg:description--xlarge text--bold">{{ progress_display }}%</div>
-    <div class="description description--xsmall lg:description--base">{{ clock_remaining }} {{ labels.left }}{% if show_remaining %}<br>≈{{ remaining_display }} {{ labels.stat_years }}{% endif %}</div>
+    <div class="value value--large lg:value--xlarge value--tnums" data-fit-value="true">{{ life_clock }}</div>
+    <div class="value value--small lg:value--base text--bold">{{ progress_display }}%</div>
+    <div class="description description--xsmall lg:description--xlarge">{{ clock_remaining }} {{ labels.left }}{% if show_remaining %}<br>≈{{ remaining_display }} {{ labels.stat_years }}{% endif %}</div>
   </section>
 </div>
 {% else %}
