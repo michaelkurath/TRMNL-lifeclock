@@ -235,6 +235,11 @@ def render_png(
             "color_depth": depth,
         }
     )
+    print(
+        f"PNG {scenario} / {device} / {view}: "
+        f"{viewport_width}x{viewport_height} -> {slot_width}x{slot_height}",
+        flush=True,
+    )
     with urlopen(
         f"http://127.0.0.1:4567/render/{view}.png?{params}", timeout=120
     ) as response:
