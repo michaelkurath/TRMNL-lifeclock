@@ -1,5 +1,5 @@
 {% if state == 'ok' %}
-<div class="layout layout--row gap--large">
+<div class="layout layout--row portrait:layout--col gap--large">
   <section class="flex flex--center no-shrink w--36 lg:w--52">
     <img class="image w--32 lg:w--48" src="data:image/svg+xml;base64,{{ life_clock_svg | base64_encode }}" alt="Life Clock at {{ life_clock }}">
   </section>
