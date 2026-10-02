@@ -5,11 +5,11 @@
   </section>
 
   <section class="flex flex--col flex--left flex--center-y gap--xsmall lg:gap--small grow">
-    <div class="label label--small lg:label--large text--bold">{{ labels.lifetime_24h }}</div>
-    <div class="value value--large lg:value--xxlarge value--tnums" data-fit-value="true">{{ life_clock }}</div>
-    <div class="description description--base lg:description--xlarge text--bold">{{ progress_display }}% {{ labels.lived }}</div>
+    <div class="label label--small lg:label--xlarge text--bold">{{ labels.lifetime_24h }}</div>
+    <div class="value value--large lg:value--xxxlarge value--tnums" data-fit-value="true">{{ life_clock }}</div>
+    <div class="description description--base lg:description--xxlarge text--bold">{{ progress_display }}% {{ labels.lived }}</div>
     <img class="image w--full hidden lg:visible" src="data:image/svg+xml;base64,{{ progress_svg | base64_encode }}" alt="{{ progress_percent }} percent lived">
-    <div class="description description--xsmall lg:description--small">
+    <div class="description description--xsmall lg:description--xlarge">
       <span class="lg:hidden">{% if show_remaining %}≈{{ remaining_display }} {{ labels.stat_years_left_short }}{% else %}{{ clock_remaining }} {{ labels.left }}{% endif %}</span>
       <span class="hidden lg:visible">{{ clock_remaining }} {{ labels.left_day }}{% if show_remaining %} · ≈{{ remaining_display }} {{ labels.stat_years }}{% endif %}</span>
     </div>
