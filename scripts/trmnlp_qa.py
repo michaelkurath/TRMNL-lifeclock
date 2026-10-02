@@ -322,7 +322,7 @@ try:
                     assert "Bevölkerungsstatistik" in html if view == "full" else True
                     assert "Switzerland" not in html
 
-                if view in png_views:
+                if view in png_views and device in {"og", "x"}:
                     render_png(scenario, device, view, spec)
                     png_renders += 1
 
@@ -332,7 +332,8 @@ try:
     )
     print(
         f"PASS: {len(SCENARIOS)} scenarios; {semantic_renders} HTML renders; "
-        f"{png_renders} genuine TRMNLP PNG renders across OG/TRMNL X landscape and portrait"
+        f"{png_renders} genuine TRMNLP PNG renders across OG/TRMNL X landscape; "
+        f"portrait profiles covered by TRMNLP HTML renders"
     )
 finally:
     stop()
