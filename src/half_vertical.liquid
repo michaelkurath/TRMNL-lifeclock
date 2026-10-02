@@ -4,7 +4,7 @@
   <img class="image w--36 lg:w--72 lg:portrait:w--80" src="data:image/svg+xml;base64,{{ life_clock_svg | base64_encode }}" alt="Life Clock at {{ life_clock }}">
   <div class="value value--large lg:value--xxxlarge value--tnums text--center" data-fit-value="true">{{ life_clock }}</div>
   <div class="description description--base lg:description--xxlarge text--bold text--center">{{ progress_display }}% {{ labels.lived }}</div>
-  <img class="image w--60 lg:w--96 h--5 lg:h--14" src="data:image/svg+xml;base64,{{ progress_svg | base64_encode }}" alt="{{ progress_percent }} percent lived">
+  <img class="image w--60 lg:w--96 lg:portrait:w--80 h--5 lg:h--14" src="data:image/svg+xml;base64,{{ progress_svg | base64_encode }}" alt="{{ progress_percent }} percent lived">
   <div class="description description--xsmall lg:description--base text--center">{{ clock_remaining }} {{ labels.left }}{% if show_remaining %} · ≈{{ remaining_display }} {{ labels.stat_years }}{% endif %}</div>
 
   <div class="hidden lg:visible w--full">
